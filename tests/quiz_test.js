@@ -10,5 +10,9 @@ describe('quiz_records',function(){
 	beforeEach(function(){
 		// fs.writeFileSync(TEST_DB_PATH,dbFileData);
 		// quiz_lib = lib.init(TEST_DB_PATH);
+
 	});
+	it("dummy",function(){
+		assert.equal(2,3);
+	})
 });
