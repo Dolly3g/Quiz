@@ -12,7 +12,4 @@ describe('quiz_records',function(){
 		// quiz_lib = lib.init(TEST_DB_PATH);
 
 	});
-	it("dummy",function(){
-		assert.equal(2,3);
-	})
 });
