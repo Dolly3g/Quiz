@@ -12,7 +12,8 @@ var runAllQueries = function(){
 		});
 	};
 
-	[	"create table users(username text);"
+	[	"create table users(username text);",
+		"create table quizzes(id integer primary key autoincrement, name text not null, email_id text not null, total_time text not null, total_seats integer not null, total_questions text not null, filename text not null, status text not null);"
 	].forEach(runQuery)	;
 };
 db.serialize(runAllQueries);

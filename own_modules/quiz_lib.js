@@ -26,6 +26,11 @@ var _is_user = function(user,db,onComplete){
 	})
 };
 
+var _show_open_quizzes = function(db,onComplete){
+	var find_open_quiz_quary = "select id,name from quizzes where status='open'";
+	db.all(find_open_quiz_quary,onComplete);
+};
+
 var init = function(location){
 	var operate = function(operation){
 		return function(){
@@ -44,7 +49,8 @@ var init = function(location){
 	};
 	var records  = {
 		login_user : operate(_login_user),
-		is_user : operate(_is_user)
+		is_user : operate(_is_user),
+		show_open_quizzes:operate(_show_open_quizzes)
 	};
 	return records;
 };
