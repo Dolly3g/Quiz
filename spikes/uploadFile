@@ -1,0 +1,47 @@
+app.js
+
+app.post('/file',function(req,res){
+    var content = req.body.data;
+    var filename = req.body.filename;
+    fs.writeFile("./data/questionFiles/"+filename,content,function(err){
+        if(err)
+            console.log('error in writing into file! '+err)
+        else
+            console.log("Written");
+    })
+    res.end("Data In the file==> "+content+"======= "+filename);
+
+})
+
+
+upload.html
+
+<html>
+<head>
+  <title>Upload</title>
+  <script type="text/javascript" src="/javascripts/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+ <form action="/file" method="post">
+      <input type="file" accept=".json" name="file" id="file"/>
+      <input type="submit" value="submit"/>
+      <input type="hidden" name="data" id="data">
+      <input type="hidden" name="filename" id="filename">
+      <script type="text/javascript" src="/javascripts/uploader.js"></script>
+ </form>
+</body>
+</html>
+
+uploader.js
+
+$("#file")[0].addEventListener('change',function(evt){
+  var filename = evt.target.files[0];
+  if(filename){
+   var reader = new FileReader();
+   $("#filename").val(filename.name);
+   reader.readAsText(filename,"utf-8");
+   reader.onload = function(evt){
+    $("#data").val(evt.target.result)
+   }
+ }
+},false)

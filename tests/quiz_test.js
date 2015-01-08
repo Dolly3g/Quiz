@@ -12,6 +12,50 @@ describe('quiz_records',function(){
 		quiz_lib = lib.init(TEST_DB_PATH);
 
 	});
+
+	describe("#is_user",function(){		
+		it("#is_user gives true for 'dolly' since dolly is already logged in",function(done){
+			var user = {username:'dolly'};
+			quiz_lib.is_user(user,function(result,err){
+				assert.ok(result)
+				assert.notOk(err)
+				done();
+			})
+		})
+
+		it("#is_user gives falsy value for 'chintu' since chintu is not logged in",function(done){
+			var user = {username:'chintu'};
+			quiz_lib.is_user(user,function(result,err){
+				assert.notOk(result)
+				assert.notOk(err)
+				done();
+			})
+		})
+	})
+
+	describe("#login_user",function(){
+		it("#login_user registers 'chintu' since 'chintu' is logging in first time",function(done){
+			var user = {username:'chintu'}
+			quiz_lib.login_user(user,function(err){
+				assert.notOk(err);
+				quiz_lib.is_user(user,function(result,err){
+					assert.ok(result)
+					assert.notOk(err)
+					done();
+				})
+			})
+		})
+
+		it("#login_user gives err 'Already exists' since 'chintu' is already logged in",function(done){
+			var user = {username:'chintu'}
+				quiz_lib.login_user(user,function(err){
+					quiz_lib.login_user(user,function(err){
+					assert.equal(err,'Already exists')
+					done();
+				})
+			})
+		})
+	})
 	describe("#show_open_quizzes",function(){
 		var expected = [{id:1,name:"Science",total_seats:10,total_time:"00:30:00",status:"open"},
 		{id:3,name:"Biology",total_seats:20,total_time:"00:45:00",status:"open"}];

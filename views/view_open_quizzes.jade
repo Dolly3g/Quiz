@@ -1,6 +1,10 @@
 extends layout
 
 block content
+ if error
+  div.dashboard
+   h4
+    |ERROR : #{error}
  p
   br
   br
