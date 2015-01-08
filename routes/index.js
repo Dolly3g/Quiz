@@ -6,9 +6,16 @@ router.get('/login', function(req, res){
 	res.render('login');
 });
 
+router.get('/dashboard', function(req, res){
+	res.render('dashboard');
+});
+
+
 router.post('/login', function(req, res){
-	console.log(req.body.username);
-	res.end("Got.");
+	quiz_lib.login_user(req.body,function(err){
+		err && console.log(err);
+	})
+	res.redirect("/dashboard");
 });
 
 
