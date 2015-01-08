@@ -1,0 +1,7 @@
+extends layout
+block content
+	form(action="/login" method="post")
+		| Username : 
+		input(type="text" name="username" pattern="[a-zA-Z]{5,}" required)
+		br 
+		input(type="submit" value="Login")

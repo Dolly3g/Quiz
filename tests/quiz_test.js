@@ -37,7 +37,7 @@ describe('quiz_records',function(){
 				email_id:"d@email.com",
 				total_time:"00:30:00",
 				total_seats:10,
-				total_questions:"6",
+				total_questions:6,
 				filename:'1.json',
 				status:'open'
 			};
@@ -50,31 +50,67 @@ describe('quiz_records',function(){
 		})
 	})
 
+	describe("#is_user",function(){		
+		it("#is_user gives true for 'dolly' since dolly is already logged in",function(done){
+			var user = {username:'dolly'};
+			quiz_lib.is_user(user,function(result,err){
+				assert.ok(result)
+				assert.notOk(err)
+				done();
+			})
+		})
+
+		it("#is_user gives falsy value for 'chintu' since chintu is not logged in",function(done){
+			var user = {username:'chintu'};
+			quiz_lib.is_user(user,function(result,err){
+				assert.notOk(result)
+				assert.notOk(err)
+				done();
+			})
+		})
+	})
+
+	describe("#login_user",function(){
+		it("#login_user registers 'chintu' since 'chintu' is logging in first time",function(done){
+			var user = {username:'chintu'}
+			quiz_lib.login_user(user,function(err){
+				assert.notOk(err);
+				quiz_lib.is_user(user,function(result,err){
+					assert.ok(result)
+					assert.notOk(err)
+					done();
+				})
+			})
+		})
+
+		it("#login_user gives err 'Already exists' since 'chintu' is already logged in",function(done){
+			var user = {username:'chintu'}
+			quiz_lib.login_user(user,function(err){
+				quiz_lib.login_user(user,function(err){
+					assert.equal(err,'Already exists')
+					done();
+				})
+			})
+		})
+	})
+	describe("#show_open_quizzes",function(){
+		var expected = [{id:1,name:"Science",total_seats:10,total_time:"00:30:00",status:"open"},
+		{id:3,name:"Biology",total_seats:20,total_time:"00:45:00",status:"open"}];
+		it("gives the list of all open quizzes",function(done){
+			quiz_lib.show_open_quizzes(function(err,open_quiz_list){
+				assert.notOk(err);
+				assert.deepEqual(open_quiz_list,expected);
+				done();
+			});
+		});
+		it("does not gives the list of close quizzes",function(done){
+			quiz_lib.show_open_quizzes(function(err,open_quiz_list){
+				assert.notOk(err);
+				assert.notEqual(open_quiz_list,expected);
+				done();
+			});
+		});
+	});
+
+
 });
-
-
-
-
-// describe('#addTopic',function(){
-// 	it('insert new topic into topics table along with userId and time',function(done){
-// 		var topic = {
-// 			name: 'hocky',
-// 			description: 'hocky is our national game',
-// 			userId: 1,
-// 			start_time:"GMT 15:30",
-// 		};
-
-// 		var callback = function(error,topicInfo){
-// 			assert.notOk(error);
-// 			topic.id = 4;
-// 			topic.end_time = null;
-// 			assert.deepEqual(topicInfo[3],topic);
-// 			done();
-// 		};
-
-// 		adda_records.addTopic(topic, function(err){
-// 			assert.notOk(err);
-// 			adda_records.getTopicInfo(callback);
-// 		});
-// 	});
-// });

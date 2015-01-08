@@ -1,7 +1,20 @@
-#create_quiz{
+.create_quiz{
 	margin-left: 10%;
 	margin-top:5%
 }
-#links{
+.links{
 	text-align: right;
+}
+
+.titlesetting{
+	text-align: center;
+}
+
+.create_new_user_link{
+	text-align: right;
+}
+
+.dashboard {
+	width: 40%;
+	margin-left: 30%;
 }
