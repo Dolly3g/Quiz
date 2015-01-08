@@ -1,0 +1,30 @@
+extends layout
+
+block content
+ p
+  br
+  br
+  div.dashboard
+   h3 Available Quizzes:
+   table(border="2px",width="100%")
+    thead
+     tr
+      th Quiz
+      th Status
+      th Total Seats
+      th Seats Left
+      th Total Time
+      th Action
+    tbody
+      each quiz in open_quizzes
+       tr
+        td #{quiz.name}
+        td #{quiz.status}
+        td #{quiz.total_seats}
+        td
+         span(id="left/#{quiz.id}") 5 
+        td #{quiz.total_time}
+        td
+         a(href="/join_quiz/#{quiz.id}") Join
+   p.create_new_user_link
+    a(href="#") Create New Quiz
