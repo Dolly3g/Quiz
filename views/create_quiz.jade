@@ -1,0 +1,41 @@
+block vars
+ - var title = 'Create Quiz'
+extends layout
+block content
+ body
+  center
+   h1 Online Quiz
+  div(class="links")
+   |Dashboard
+   |&nbsp;&nbsp;&nbsp;&nbsp;  
+   |logout
+  div(class="create_quiz") 
+   form(action="/create_quiz" method="post")
+    h2 Create Quiz
+    |Name of the Quiz : 
+    input(type="text" name="name" required)
+    br
+    br
+    |Maximum Players :
+    input(type="text" name="total_seats" required)
+    br
+    br
+    |Time for the Quiz :
+    input(type="text" name="hours" required)
+    |HH
+    input(type="text" name="Minutes" required)
+    |MM
+    input(type="text" name="Seconds" required)
+    |SS
+    br
+    br
+    |Question File: 
+    input(type="Submit" value="Browse File")
+    |&nbsp;&nbsp;
+    input(type="text" name="filename" )
+    br
+    br
+    input(type="submit" value="Create_Quiz")
+    br
+    br
+
