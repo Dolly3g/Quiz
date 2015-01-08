@@ -12,7 +12,7 @@ var runAllQueries = function(){
 		});
 	};
 
-	[	"create table users(email text primary key, name text);",
+	[	"create table users(username text);"
 	].forEach(runQuery)	;
 };
 db.serialize(runAllQueries);
