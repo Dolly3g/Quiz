@@ -2,18 +2,14 @@ var sqlite3 = require("sqlite3").verbose();
 
 var add_user = function(user,db,onComplete){
 	db.run("insert into users(username) values('"+user.username+"')",function(err){
-		err && console.log(err)
 		onComplete(err);
 	})
 };
 
 var _login_user = function(user,db,onComplete){
 	_is_user(user,db,function(result,err){
-		if(result){
-			onComplete('Already exists');
-		}
-		else
-			add_user(user,db,onComplete)
+		result && onComplete('Already exists')
+		result || add_user(user,db,onComplete)
 	})
 };
 
