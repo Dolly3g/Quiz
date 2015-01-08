@@ -16,7 +16,7 @@ var init = function(location){
 		};	
 	};
 	var records  = {
-		//functions
+
 	};
 	return records;
 };
