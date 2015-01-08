@@ -48,8 +48,8 @@ describe('quiz_records',function(){
 
 		it("#login_user gives err 'Already exists' since 'chintu' is already logged in",function(done){
 			var user = {username:'chintu'}
+			quiz_lib.login_user(user,function(err){
 				quiz_lib.login_user(user,function(err){
-					quiz_lib.login_user(user,function(err){
 					assert.equal(err,'Already exists')
 					done();
 				})

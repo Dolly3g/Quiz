@@ -3,18 +3,16 @@ var router = express.Router();
 var quiz_lib = require('../own_modules/quiz_lib.js').init('./data/quiz.db');
 
 var requireLogin = function(req,res,next){
-	if(req.session.user)
-		next();
-	else
-		res.redirect('/login')
-}
+	req.session.user? next(): res.redirect('/login');
+};
 
 router.get('/login', function(req, res){
 	res.render('login');
 });
 
 router.post('/login', function(req, res){
-	var user = req.body;
+	var user = {};
+	user.username = req.body.username;
 	quiz_lib.login_user(user,function(err){
 		err && console.log(err);
 		req.session.user = user.username;
