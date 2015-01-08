@@ -15,7 +15,11 @@ describe('quiz_records',function(){
 	describe("#show_open_quizzes",function(){
 		it("gives the list of all open quizzes",function(done){
 			var expected = [{id:1,name:"Science"},{id:3,name:"Biology"}];
-			//assert.equal([])
+			quiz_lib.show_open_quizzes(function(err,open_quiz_list){
+				assert.notOk(err);
+				assert.deepEqual(open_quiz_list,expected);
+				done();
+			});
 		});
 	});
 

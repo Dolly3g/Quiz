@@ -1,4 +1,10 @@
 var sqlite3 = require("sqlite3").verbose(); 
+
+var _show_open_quizzes = function(db,onComplete){
+	var find_open_quiz_quary = "select id,name from quizzes where status='open'";
+	db.all(find_open_quiz_quary,onComplete);	
+};
+
 var init = function(location){
 	var operate = function(operation){
 		return function(){
@@ -16,7 +22,7 @@ var init = function(location){
 		};	
 	};
 	var records  = {
-
+		show_open_quizzes:operate(_show_open_quizzes)
 	};
 	return records;
 };
