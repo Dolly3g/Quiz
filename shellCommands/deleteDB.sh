@@ -1,2 +1,2 @@
 rm -rf data
-rm -rf test/data
+rm -rf tests/data
