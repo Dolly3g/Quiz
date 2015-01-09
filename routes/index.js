@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 var quiz_lib = require('../own_modules/quiz_lib.js').init('./data/quiz.db');
 
 var requireLogin = function(req,res,next){
@@ -30,18 +31,23 @@ router.get('/create_quiz' , function(req,res){
 
 router.post('/create_quiz' , function(req,res){
     var quiz_info = req.body;
+    quiz_info.status = "open";
+    var content = req.body.data;
+    var filename = req.body.filename;
+
     if(req.body.email_id==undefined){
-    	quiz_info.email_id = "a@gmail.com";
-    }
-    if(req.body.status==undefined){
-    	quiz_info.status = "open";
+        quiz_info.email_id = "a@gmail.com";
     }
     if(req.body.total_questions==undefined){
-    	quiz_info.total_questions = "10";
+        quiz_info.total_questions = "10";
     }
-    console.log(quiz_info);
+    fs.writeFile("./data/questionFiles/"+filename,content,function(err){
+        err &&  console.log('error in writing into file! '+err)
+        !err && console.log("Written");
+    })
+
     quiz_lib.add_new_quiz(quiz_info,function(error){
-    	error && console.log(error);
+    	error && res.render("create_quiz", {error:error});
     	!error && res.redirect("waitingPage");
     });
 })

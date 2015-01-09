@@ -20,7 +20,7 @@ upload.html
 <head>
   <title>Upload</title>
   <script type="text/javascript" src="/javascripts/jquery-1.11.1.min.js"></script>
-</head>
+</head> 
 <body>
  <form action="/file" method="post">
       <input type="file" accept=".json" name="file" id="file"/>

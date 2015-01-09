@@ -22,19 +22,25 @@ block content
     |Time for the Quiz :
     input(type="text" name="hours" pattern="[0-9]{2,}" size="1" required)
     |HH 
-    input(type="text" name="Minutes" pattern="[0-9]{2,}" size="1" required)
+    input(type="text" name="Minutes" pattern="[0-9]{2,2}" size="1" required)
     |MM 
-    input(type="text" name="Seconds" pattern="[0-9]{2,}" size="1" required)
+    input(type="text" name="Seconds" pattern="[0-9]{2,2}" size="1" required)
     |SS
     |(HH:MM:SS)
     br
     br
     |Question File: 
-    input(type="file" value="Browse File" name="filename")
+    input(type="file" value="Browse File"  accept=".json" name="filename" id="file" required)
     |&nbsp;&nbsp;
+    input(type="hidden" name="data" id="data" required)
+    |&nbsp;&nbsp;
+    script(type ="text/javascript" src ="/javascripts/jquery-1.11.1.min.js")
+    script(type ="text/javascript" src ="/javascripts/file_uploader.js")
     br
     br
     input(type="submit" value="Create_Quiz")
     br
     br
+    if error
+     |Error: #{error}
 

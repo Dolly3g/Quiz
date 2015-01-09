@@ -14,7 +14,10 @@ var _add_new_quiz = function(quiz,db,onComplete){
 		"$filename": quiz.filename,
 		"$status":quiz.status
 	}
-	db.run(create_quiz_query,quiz_query_params,onComplete);
+	if(quiz_query_params["$filename"].indexOf(".json")>=0)
+		db.run(create_quiz_query,quiz_query_params,onComplete());
+	else 
+		onComplete('File extention is not right. It should be a json file')
 };
 
 var _get_quiz_info = function(db , onComplete){

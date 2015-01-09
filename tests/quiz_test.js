@@ -22,7 +22,7 @@ describe('quiz_records',function(){
 				Seconds:"0",
 				total_seats:25,
 				total_questions:1,
-				filename:'filename.txt',
+				filename:'filename.json',
 				status:'open'
 			};
 			quiz_lib.add_new_quiz(quiz,function(err){
