@@ -17,7 +17,6 @@ var validateData = function(data){
     return error;    
 };
 
-
 router.post('/login', function(req, res){
     var user = {};
     user.username = req.body.username;
@@ -36,6 +35,15 @@ router.post('/login', function(req, res){
 router.get('/waitingPage', function(req , res){
     res.render("waitingPage")
 })
+
+router.get('/start_quiz', function(req , res){
+    res.render("start_quiz");
+})
+
+router.get('/start_quiz/:id', function(req , res){
+    res.end("Started........")
+})
+
 router.get('/create_quiz' , function(req,res){
     res.render("create_quiz");
 })
