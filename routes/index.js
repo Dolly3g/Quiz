@@ -55,6 +55,7 @@ router.post('/create_quiz' , function(req,res){
     var quiz_info = req.body;
     quiz_info.status = "open";
     var content = req.body.data;
+    
     var filename = req.body.filename;
 
     if(req.body.email_id==undefined){
