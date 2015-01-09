@@ -32,8 +32,11 @@ router.post('/login', function(req, res){
 	})
 });
 
-router.get('/waitingPage', function(req , res){
-    res.render("waitingPage")
+router.get('/waitingPage/:id', function(req , res){
+    var id = req.params.id;
+    quiz_lib.quiz_details(id,function(err,data){
+        res.render('waitingPage',{data:data});
+    });
 })
 
 router.get('/start_quiz/:id', function(req , res){

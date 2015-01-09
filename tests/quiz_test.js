@@ -118,6 +118,16 @@ describe('quiz_records',function(){
 			});
 		});
 	});
+	describe("quiz_details",function(){
+		it("returns the details of a quiz by quiz_id",function(done){
+			var expected = [{id:1,name:"Science",total_seats:10}];
+			quiz_lib.quiz_details(1,function(err,quiz_summary){
+				assert.notOk(err);
+				assert.deepEqual(quiz_summary,expected);
+				done();
+			});
+		});
+	});
 
 	describe("#get_quiz_details",function(){
 		it("gives the all the details of quiz_id 1",function(done){
