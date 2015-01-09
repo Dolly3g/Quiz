@@ -110,6 +110,13 @@ describe('quiz_records',function(){
 				done();
 			});
 		});
+		it("does not gives the list of running quizzes",function(done){
+			quiz_lib.show_open_quizzes(function(err,open_quiz_list){
+				assert.notOk(err);
+				assert.notEqual(open_quiz_list,expected);
+				done();
+			});
+		});
 	});
 
 

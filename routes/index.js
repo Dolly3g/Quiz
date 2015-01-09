@@ -60,8 +60,8 @@ router.post('/create_quiz' , function(req,res){
 
 router.get('/dashboard',requireLogin,function(req,res){
 	quiz_lib.show_open_quizzes(function(err,open_quizzes){
-		err && req.render('view_open_quizzes',{error:err})
-		!err && res.render('view_open_quizzes',{open_quizzes:open_quizzes});
+		err && req.render('dashboard',{error:err})
+		!err && res.render('dashboard',{open_quizzes:open_quizzes});
 	});
 });
 
