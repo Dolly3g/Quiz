@@ -1,13 +1,16 @@
 block vars
- -var title = 'Create Quiz'
+ -var title = 'Waiting Page'
 extends layout
 block content
  body
-  center
-   h1 Online Quiz
-  div(class="links")
-   |Dashboard
-   |&nbsp;&nbsp;&nbsp;&nbsp;  
-   |logout
-
+  div.waittingPage
+   br
+   br
+   |#{data[0].name} Quiz
+   br
+   br
+   br
+   |Players joined 0/#{data[0].total_seats}
+   br
+   |Quiz will start soon...
 

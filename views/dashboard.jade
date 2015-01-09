@@ -28,9 +28,9 @@ block content
         td #{quiz.status}
         td #{quiz.total_seats}
         td
-         span(id="left/#{quiz.id}") 5 
+         span(id="left/#{quiz.id}")  #{quiz.total_seats}
         td #{quiz.total_time}
         td
-         a(href="/join_quiz/#{quiz.id}") Join
+         a(href="/waitingPage/#{quiz.id}") Join
    p.create_new_user_link
     a(href="#") Create New Quiz
