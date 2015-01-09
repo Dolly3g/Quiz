@@ -11,10 +11,21 @@ router.get('/login', function(req, res){
 	res.render('login');
 });
 
+var validateData = function(data){
+    var error;
+    data.indexOf("'") >= 0 && (error = 'Single quote is not supported')
+    data.length <5 && (error = 'Username should have at least 5 characters')
+    return error;    
+};
 
 router.post('/login', function(req, res){
-	var user = {};
-	user.username = req.body.username;
+    var user = {};
+    user.username = req.body.username;
+    var error = validateData(user.username)
+    if(error){
+        res.render('login',{error:error})
+        return;
+    }
 	quiz_lib.login_user(user,function(err){
 		err && console.log(err);
 		req.session.user = user.username;
@@ -25,6 +36,15 @@ router.post('/login', function(req, res){
 router.get('/waitingPage', function(req , res){
     res.render("waitingPage")
 })
+
+router.get('/start_quiz', function(req , res){
+    res.render("start_quiz");
+})
+
+router.get('/start_quiz/:id', function(req , res){
+    res.end("Started........")
+})
+
 router.get('/create_quiz' , function(req,res){
     res.render("create_quiz");
 })
@@ -54,8 +74,8 @@ router.post('/create_quiz' , function(req,res){
 
 router.get('/dashboard',requireLogin,function(req,res){
 	quiz_lib.show_open_quizzes(function(err,open_quizzes){
-		err && req.render('view_open_quizzes',{error:err})
-		!err && res.render('view_open_quizzes',{open_quizzes:open_quizzes});
+		err && req.render('dashboard',{error:err})
+		!err && res.render('dashboard',{open_quizzes:open_quizzes});
 	});
 });
 

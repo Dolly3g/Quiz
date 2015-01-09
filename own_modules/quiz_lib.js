@@ -20,6 +20,11 @@ var _add_new_quiz = function(quiz,db,onComplete){
 		onComplete('File extention is not right. It should be a json file')
 };
 
+var _get_quiz_details = function(id,db,onComplete){
+	var quiz_query = 'select name,total_time,total_seats,email_id from quizzes where id='+id;
+	db.get(quiz_query,onComplete);
+};
+
 var _get_quiz_info = function(db , onComplete){
 	var select_query = 'select * from quizzes where id=1;'
 	db.get(select_query , function(err , quiz_info){
@@ -75,7 +80,8 @@ var init = function(location){
 		get_quiz_info: operate(_get_quiz_info),
 		login_user : operate(_login_user),
 		is_user : operate(_is_user),
-		show_open_quizzes:operate(_show_open_quizzes)
+		show_open_quizzes:operate(_show_open_quizzes),
+		get_quiz_details:operate(_get_quiz_details)
 	};
 	return records;
 };

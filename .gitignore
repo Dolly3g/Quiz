@@ -1,5 +1,6 @@
-node_modules
-data
+own_modules/quiz_moddule.js
 tests/data
-setinterval.html
+data
 shellCommands
+sound
+node_modules
