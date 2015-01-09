@@ -1,4 +1,28 @@
-var sqlite3 = require("sqlite3").verbose(); 
+var sqlite3 = require("sqlite3").verbose();
+
+var _add_new_quiz = function(quiz,db,onComplete){
+	var total_time = ""+quiz.hours+":"+quiz.Minutes+":"+quiz.Seconds;
+	quiz.total_time = total_time; 
+	var create_quiz_query = "insert into quizzes(name, email_id, total_time, total_seats, total_questions, filename, status)"+
+							"values($name ,$email_id, $total_time, $total_seats, $total_questions , $filename , $status)";
+	var quiz_query_params = {
+		"$name":quiz.name , 
+		"$email_id": quiz.email_id, 
+		"$total_time": quiz.total_time, 
+		"$total_seats": quiz.total_seats, 
+		"$total_questions": quiz.total_questions, 
+		"$filename": quiz.filename,
+		"$status":quiz.status
+	}
+	db.run(create_quiz_query,quiz_query_params,onComplete);
+};
+
+var _get_quiz_info = function(db , onComplete){
+	var select_query = 'select * from quizzes where id=1;'
+	db.get(select_query , function(err , quiz_info){
+		onComplete(err , quiz_info);
+	})
+};
 
 var add_user = function(user,db,onComplete){
 	db.run("insert into users(username) values('"+user.username+"')",function(err){
@@ -44,6 +68,8 @@ var init = function(location){
 		};	
 	};
 	var records  = {
+		add_new_quiz : operate(_add_new_quiz),
+		get_quiz_info: operate(_get_quiz_info),
 		login_user : operate(_login_user),
 		is_user : operate(_is_user),
 		show_open_quizzes:operate(_show_open_quizzes)
