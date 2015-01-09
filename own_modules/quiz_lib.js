@@ -1,4 +1,5 @@
 var sqlite3 = require("sqlite3").verbose();
+var _ = require('lodash');
 
 var _add_new_quiz = function(quiz,db,onComplete){
 	var total_time = ""+quiz.hours+":"+quiz.Minutes+":"+quiz.Seconds;
@@ -20,9 +21,22 @@ var _add_new_quiz = function(quiz,db,onComplete){
 		onComplete('File extention is not right. It should be a json file')
 };
 
+var formatPlayers = function(players){
+	return players.map(function(player){
+		return player.email_id;
+	})
+};
+
 var _get_quiz_details = function(id,db,onComplete){
 	var quiz_query = 'select name,total_time,total_seats,email_id from quizzes where id='+id;
-	db.get(quiz_query,onComplete);
+	var players_query = 'select email_id from results where quiz_id='+id;
+	db.get(quiz_query,function(err,quiz_details){
+		db.all(players_query,function(err,players){
+			quiz_details.players = formatPlayers(players)
+			quiz_details.total_players = players.length;
+			onComplete(err,quiz_details)
+		})
+	});
 };
 
 var _get_quiz_info = function(db , onComplete){
