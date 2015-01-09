@@ -37,12 +37,11 @@ router.get('/waitingPage', function(req , res){
     res.render("waitingPage")
 })
 
-router.get('/start_quiz', function(req , res){
-    res.render("start_quiz");
-})
-
 router.get('/start_quiz/:id', function(req , res){
-    res.end("Started........")
+    var id = req.params.id;
+    quiz_lib.get_quiz_details(id,function(err,quiz_details){
+        res.render('start_quiz',quiz_details)
+    })
 })
 
 router.get('/create_quiz' , function(req,res){
@@ -65,7 +64,7 @@ router.post('/create_quiz' , function(req,res){
         err &&  console.log('error in writing into file! '+err)
         !err && console.log("Written");
     })
-
+    
     quiz_lib.add_new_quiz(quiz_info,function(error){
     	error && res.render("create_quiz", {error:error});
     	!error && res.redirect("waitingPage");
