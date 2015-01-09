@@ -4,14 +4,13 @@ extends layout
 block content
  body
   center
-   h1 Online Quiz
   div(class="links")
-   |Dashboard
+   a(href = '/dashboard') Dashboard
    |&nbsp;&nbsp;&nbsp;&nbsp;  
-   |logout
+   a(href = '/login') logout
   div(class="create_quiz") 
    form(action="/create_quiz" method="post")
-    h2 Create Quiz
+    h3 Create Quiz
     |Name of the Quiz : 
     input(type="text" name="name" required)
     br
@@ -21,18 +20,18 @@ block content
     br
     br
     |Time for the Quiz :
-    input(type="text" name="hours" required)
-    |HH
-    input(type="text" name="Minutes" required)
-    |MM
-    input(type="text" name="Seconds" required)
+    input(type="text" name="hours" pattern="[0-9]{2,}" size="1" required)
+    |HH 
+    input(type="text" name="Minutes" pattern="[0-9]{2,}" size="1" required)
+    |MM 
+    input(type="text" name="Seconds" pattern="[0-9]{2,}" size="1" required)
     |SS
+    |(HH:MM:SS)
     br
     br
     |Question File: 
-    input(type="Submit" value="Browse File")
+    input(type="file" value="Browse File" name="filename")
     |&nbsp;&nbsp;
-    input(type="text" name="filename" )
     br
     br
     input(type="submit" value="Create_Quiz")
