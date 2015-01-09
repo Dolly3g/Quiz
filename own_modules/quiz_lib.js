@@ -51,6 +51,11 @@ var _show_open_quizzes = function(db,onComplete){
 	db.all(find_open_quiz_quary,onComplete);	
 };
 
+var _quiz_details = function(id,db,onComplete){
+	var find_quiz_details_quary = "select id,name,total_seats from quizzes where id="+id;
+	db.all(find_quiz_details_quary,onComplete);
+}
+
 var init = function(location){
 	var operate = function(operation){
 		return function(){
@@ -72,7 +77,8 @@ var init = function(location){
 		get_quiz_info: operate(_get_quiz_info),
 		login_user : operate(_login_user),
 		is_user : operate(_is_user),
-		show_open_quizzes:operate(_show_open_quizzes)
+		show_open_quizzes : operate(_show_open_quizzes),
+		quiz_details : operate(_quiz_details)
 	};
 	return records;
 };

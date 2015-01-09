@@ -10,7 +10,6 @@ router.get('/login', function(req, res){
 	res.render('login');
 });
 
-
 router.post('/login', function(req, res){
 	var user = {};
 	user.username = req.body.username;
@@ -21,8 +20,11 @@ router.post('/login', function(req, res){
 	})
 });
 
-router.get('/waitingPage', function(req , res){
-    res.render("waitingPage")
+router.get('/waitingPage/:id', function(req , res){
+    var id = req.params.id;
+    quiz_lib.quiz_details(id,function(err,data){
+        res.render('waitingPage',{data:data});
+    });
 })
 router.get('/create_quiz' , function(req,res){
     res.render("create_quiz");
