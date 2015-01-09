@@ -1,7 +1,14 @@
 extends layout
+block vars
+	-var title = "Login"
 block content
 	form(action="/login" method="post")
 		| Username : 
-		input(type="text" name="username" pattern="[a-zA-Z]{5,}" required)
+		input(type="text" name="username" required)
+		<p class="login_req">
 		br 
 		input(type="submit" value="Login")
+		br
+		br
+	if error
+		<p class="error">Error: #{error}

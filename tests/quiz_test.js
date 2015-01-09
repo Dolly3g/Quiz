@@ -128,4 +128,16 @@ describe('quiz_records',function(){
 			});
 		});
 	});
+
+	describe("#get_quiz_details",function(){
+		it("gives the all the details of quiz_id 1",function(done){
+			var expected = {name:'Science',total_time:'00:30:00',total_seats:10,email_id:'d@email.com'}
+			quiz_lib.get_quiz_details(1,function(err,quiz_details){
+				assert.notOk(err);
+				assert.deepEqual(expected,quiz_details);
+				done();
+			});
+		});
+	});
+
 });
