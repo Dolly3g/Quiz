@@ -20,15 +20,15 @@ var validateData = function(data){
 
 router.post('/login', function(req, res){
     var user = {};
-    user.username = req.body.username;
-    var error = validateData(user.username)
+    user.email_id = req.body.email_id;
+    var error = validateData(user.email_id)
     if(error){
         res.render('login',{error:error})
         return;
     }
 	quiz_lib.login_user(user,function(err){
 		err && console.log(err);
-		req.session.user = user.username;
+		req.session.user = user.email_id;
 		res.redirect("/dashboard");
 	})
 });
@@ -59,7 +59,7 @@ router.post('/create_quiz' , function(req,res){
     var filename = req.body.filename;
 
     if(req.body.email_id==undefined){
-        quiz_info.email_id = "a@gmail.com";
+        quiz_info.email_id = "d@email.com";
     }
     if(req.body.total_questions==undefined){
         quiz_info.total_questions = "10";
@@ -77,7 +77,7 @@ router.post('/create_quiz' , function(req,res){
 
 router.get('/dashboard',requireLogin,function(req,res){
 	quiz_lib.show_open_quizzes(function(err,open_quizzes){
-		err && req.render('dashboard',{error:err})
+		err && res.render('dashboard',{error:err})
 		!err && res.render('dashboard',{open_quizzes:open_quizzes});
 	});
 });
