@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha tests/*test.js"
+    "test": "mocha tests/*test.js",
+    "startup": "sh deploy.sh"
   },
   "dependencies": {
     "bcryptjs": "^2.1.0",
