@@ -152,4 +152,15 @@ describe('quiz_records',function(){
 		})
 	})
 
+	describe('#get_joined_players',function(){
+		it('gives an array of joined people in quiz 1',function(done){
+			var expected = ["d@email.com","g@email.com"];
+			quiz_lib.get_joined_players(1,function(err,players){
+				assert.notOk(err);
+				assert.deepEqual(expected,players)
+				done()
+			})
+		})
+	})
+
 });
