@@ -55,7 +55,6 @@ router.post('/create_quiz' , function(req,res){
     var quiz_info = req.body;
     quiz_info.status = "open";
     var content = req.body.data;
-    
     var filename = req.body.filename;
 
     if(req.body.email_id==undefined){
@@ -71,7 +70,7 @@ router.post('/create_quiz' , function(req,res){
     
     quiz_lib.add_new_quiz(quiz_info,function(error){
     	error && res.render("create_quiz", {error:error});
-    	!error && res.redirect("waitingPage");
+    	!error && res.redirect("start_quiz/1");
     });
 })
 
