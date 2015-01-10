@@ -27,12 +27,19 @@ var formatPlayers = function(players){
 	})
 };
 
+var _get_joined_players = function(id,db,onComplete){
+	var players_query = 'select email_id from results where quiz_id='+id;
+	db.all(players_query,function(err,players){
+		players = formatPlayers(players);
+		onComplete(err,players)
+	})
+};
+
 var _get_quiz_details = function(id,db,onComplete){
 	var quiz_query = 'select name,total_time,total_seats,email_id from quizzes where id='+id;
-	var players_query = 'select email_id from results where quiz_id='+id;
 	db.get(quiz_query,function(err,quiz_details){
-		db.all(players_query,function(err,players){
-			quiz_details.players = formatPlayers(players)
+		_get_joined_players(id,db,function(err,players){
+			quiz_details.players = players;
 			quiz_details.total_players = players.length;
 			onComplete(err,quiz_details)
 		})
@@ -47,7 +54,7 @@ var _get_quiz_info = function(db , onComplete){
 };
 
 var add_user = function(user,db,onComplete){
-	db.run("insert into users(username) values('"+user.username+"')",function(err){
+	db.run("insert into users(email_id) values('"+user.email_id+"')",function(err){
 		onComplete(err);
 	})
 };
@@ -60,16 +67,16 @@ var _login_user = function(user,db,onComplete){
 };
 
 var _is_user = function(user,db,onComplete){
-	var user_query = "select username from users where username='"+user.username+"'";
-	db.get(user_query,function(err,username){
+	var user_query = "select email_id from users where email_id='"+user.email_id+"'";
+	db.get(user_query,function(err,email_id){
 		var result;
-		username && (result=true)
+		email_id && (result=true)
 		onComplete(result,null)
 	})
 };
 
 var _show_open_quizzes = function(db,onComplete){
-	var find_open_quiz_quary = "select id,name,total_seats,total_time,status from quizzes where status='open'";
+	var find_open_quiz_quary = "select id,name,total_seats,total_time,status from quizzes where status='Open'";
 	db.all(find_open_quiz_quary,onComplete);	
 };
 
@@ -102,7 +109,8 @@ var init = function(location){
 		show_open_quizzes : operate(_show_open_quizzes),
 		quiz_details : operate(_quiz_details),
 		show_open_quizzes:operate(_show_open_quizzes),
-		get_quiz_details:operate(_get_quiz_details)
+		get_quiz_details:operate(_get_quiz_details),
+		get_joined_players:operate(_get_joined_players)
 	};
 	return records;
 };

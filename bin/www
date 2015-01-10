@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var debug = require('debug')('Adda');
+var debug = require('debug')('Quiz');
 var app = require('../app');
 var socket_io = require("socket.io");
 
