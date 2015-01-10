@@ -1,5 +1,4 @@
 PRAGMA foreign_keys = "ON";
-
 insert into users(email_id) values("d@email.com"),("t@email.com"),("g@email.com"),("s@email.com");
 insert into quizzes(name, email_id, total_time, total_seats, total_questions, filename, status)
 	values("Science","d@email.com","00:30:00",10,6,"1.json","Open"),
