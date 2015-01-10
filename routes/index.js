@@ -71,7 +71,7 @@ router.post('/create_quiz' , function(req,res){
     
     quiz_lib.add_new_quiz(quiz_info,function(error){
     	error && res.render("create_quiz", {error:error});
-    	!error && res.redirect("waitingPage");
+    	!error && res.redirect("/start_quiz/1");
     });
 })
 

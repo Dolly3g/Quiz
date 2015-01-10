@@ -16,7 +16,7 @@ describe('quiz_records',function(){
 		it("add a new quiz G.K.",function(done){
 			var quiz = {
 				name : 'G.K.',
-				email_id:"any@g.com",
+				email_id:"d@email.com",
 				hours:"0",
 				Minutes:"10",
 				Seconds:"0",
@@ -52,7 +52,7 @@ describe('quiz_records',function(){
 
 	describe("#is_user",function(){		
 		it("#is_user gives true for 'dolly' since dolly is already logged in",function(done){
-			var user = {username:'dolly'};
+			var user = {email_id:'d@email.com'};
 			quiz_lib.is_user(user,function(result,err){
 				assert.ok(result)
 				assert.notOk(err)
@@ -61,7 +61,7 @@ describe('quiz_records',function(){
 		})
 
 		it("#is_user gives falsy value for 'chintu' since chintu is not logged in",function(done){
-			var user = {username:'chintu'};
+			var user = {email_id:'not@exists.com'};
 			quiz_lib.is_user(user,function(result,err){
 				assert.notOk(result)
 				assert.notOk(err)
@@ -72,7 +72,7 @@ describe('quiz_records',function(){
 
 	describe("#login_user",function(){
 		it("#login_user registers 'chintu' since 'chintu' is logging in first time",function(done){
-			var user = {username:'chintu'}
+			var user = {email_id:'chintu@ex.com'}
 			quiz_lib.login_user(user,function(err){
 				assert.notOk(err);
 				quiz_lib.is_user(user,function(result,err){
@@ -84,7 +84,7 @@ describe('quiz_records',function(){
 		})
 
 		it("#login_user gives err 'Already exists' since 'chintu' is already logged in",function(done){
-			var user = {username:'chintu'}
+			var user = {email_id:'chintu'}
 			quiz_lib.login_user(user,function(err){
 				quiz_lib.login_user(user,function(err){
 					assert.equal(err,'Already exists')
@@ -132,8 +132,19 @@ describe('quiz_records',function(){
 	describe("#get_quiz_details",function(){
 		it("gives the all the details of quiz_id 1",function(done){
 			var expected = {name:'Science',total_time:'00:30:00',total_seats:10,email_id:'d@email.com',
-				players : ['d@email.com'],total_players : 1}
+				players : ['d@email.com','g@email.com'],total_players : 2}
 			quiz_lib.get_quiz_details(1,function(err,quiz_details){
+				assert.notOk(err);
+				assert.deepEqual(expected,quiz_details);
+				done();
+			})
+		})
+
+		it("gives all the details of quiz_id 3",function(done){
+			var expected = {name:'Biology',total_time:'00:45:00',total_seats:20,email_id:'g@email.com',
+				players : ['s@email.com'],total_players : 1}
+
+			quiz_lib.get_quiz_details(3,function(err,quiz_details){
 				assert.notOk(err);
 				assert.deepEqual(expected,quiz_details);
 				done();
