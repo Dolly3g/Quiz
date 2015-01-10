@@ -27,12 +27,19 @@ var formatPlayers = function(players){
 	})
 };
 
+var _get_joined_players = function(id,db,onComplete){
+	var players_query = 'select email_id from results where quiz_id='+id;
+	db.all(players_query,function(err,players){
+		players = formatPlayers(players);
+		onComplete(err,players)
+	})
+};
+
 var _get_quiz_details = function(id,db,onComplete){
 	var quiz_query = 'select name,total_time,total_seats,email_id from quizzes where id='+id;
-	var players_query = 'select email_id from results where quiz_id='+id;
 	db.get(quiz_query,function(err,quiz_details){
-		db.all(players_query,function(err,players){
-			quiz_details.players = formatPlayers(players)
+		_get_joined_players(id,db,function(err,players){
+			quiz_details.players = players;
 			quiz_details.total_players = players.length;
 			onComplete(err,quiz_details)
 		})
@@ -102,7 +109,8 @@ var init = function(location){
 		show_open_quizzes : operate(_show_open_quizzes),
 		quiz_details : operate(_quiz_details),
 		show_open_quizzes:operate(_show_open_quizzes),
-		get_quiz_details:operate(_get_quiz_details)
+		get_quiz_details:operate(_get_quiz_details),
+		get_joined_players:operate(_get_joined_players)
 	};
 	return records;
 };
