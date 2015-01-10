@@ -23,7 +23,7 @@ describe('quiz_records',function(){
 				total_seats:25,
 				total_questions:1,
 				filename:'filename.json',
-				status:'open'
+				status:'Open'
 			};
 			quiz_lib.add_new_quiz(quiz,function(err){
 				assert.notOk(err);
@@ -39,7 +39,7 @@ describe('quiz_records',function(){
 				total_seats:10,
 				total_questions:6,
 				filename:'1.json',
-				status:'open'
+				status:'Open'
 			};
 			var callback = function(error,QuizInfo){
 				assert.notOk(error);
@@ -94,8 +94,8 @@ describe('quiz_records',function(){
 		})
 	})
 	describe("#show_open_quizzes",function(){
-		var expected = [{id:1,name:"Science",total_seats:10,total_time:"00:30:00",status:"open"},
-		{id:3,name:"Biology",total_seats:20,total_time:"00:45:00",status:"open"}];
+		var expected = [{id:1,name:"Science",total_seats:10,total_time:"00:30:00",status:"Open"},
+		{id:3,name:"Biology",total_seats:20,total_time:"00:45:00",status:"Open"}];
 		it("gives the list of all open quizzes",function(done){
 			quiz_lib.show_open_quizzes(function(err,open_quiz_list){
 				assert.notOk(err);

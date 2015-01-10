@@ -69,7 +69,7 @@ var _is_user = function(user,db,onComplete){
 };
 
 var _show_open_quizzes = function(db,onComplete){
-	var find_open_quiz_quary = "select id,name,total_seats,total_time,status from quizzes where status='open'";
+	var find_open_quiz_quary = "select id,name,total_seats,total_time,status from quizzes where status='Open'";
 	db.all(find_open_quiz_quary,onComplete);	
 };
 
