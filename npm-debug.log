@@ -7,13 +7,13 @@
 6 info test Quiz@0.0.0
 7 verbose unsafe-perm in lifecycle true
 8 info Quiz@0.0.0 Failed to exec test script
-9 error Quiz@0.0.0 test: `mocha tests/*test.js`
-9 error Exit status 12
+9 error Quiz@0.0.0 test: `sh runTest.sh`
+9 error Exit status 127
 10 error Failed at the Quiz@0.0.0 test script.
 10 error This is most likely a problem with the Quiz package,
 10 error not with npm itself.
 10 error Tell the author that this fails on your system:
-10 error     mocha tests/*test.js
+10 error     sh runTest.sh
 10 error You can get their info via:
 10 error     npm owner ls Quiz
 10 error There is likely additional logging output above.

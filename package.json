@@ -4,13 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha tests/*test.js",
     
     "initDB": "mkdir data && touch data/quiz.db && node scripts/initializeDB.js data/quiz.db",
     "test": "sh runTest.sh",
     "setup": "npm install && npm run initDB",
     "reset": "rm -rf data && npm run setup",
-    "testServer": "mkdir data && cp tests/data/instance.db data/quiz.db",
+    "testServer": "mkdir data && cp tests/data/quiz.db data/quiz.db",
     "removeProdData": "rm -rf data"
   },
   "dependencies": {
