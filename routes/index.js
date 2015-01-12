@@ -55,15 +55,26 @@ router.get('/create_quiz' , function(req,res){
 router.post('/create_quiz' ,requireLogin, function(req,res){
     var quiz_info = req.body;
     quiz_info.status = "Open";
+    quiz_info.email_id = req.session.user;
     var filename = req.body.filename;
     var content = req.body.data;    
+    if(content==""){
+        console.log("there is no content in file");
+        res.end("Error in reading file");
+        return;
+    }
+    if(content!=""){
+        try{
+            var total_questions= eval(JSON.parse(content)).length;
+            quiz_info.total_questions =total_questions;
+        }
+        catch(err){
+            console.log("Error in reading file:",err);
+            res.end("Error in reading file");
+            return;
+        }
+    }
 
-    if(req.body.email_id==undefined){
-        quiz_info.email_id = req.session.user;
-    }
-    if(req.body.total_questions==undefined){
-        quiz_info.total_questions = "10";
-    }
     fs.writeFile("./data/questionFiles/"+filename,content,function(err){
         err &&  console.log('error in writing into file! '+err)
         !err && console.log("Written");
