@@ -47,18 +47,19 @@ router.get('/start_quiz/:id', function(req , res){
     })
 })
 
+
 router.get('/create_quiz' , function(req,res){
     res.render("create_quiz");
 })
 
-router.post('/create_quiz' , function(req,res){
+router.post('/create_quiz' ,requireLogin, function(req,res){
     var quiz_info = req.body;
-    quiz_info.status = "open";
-    var content = req.body.data;
+    quiz_info.status = "Open";
     var filename = req.body.filename;
+    var content = req.body.data;    
 
     if(req.body.email_id==undefined){
-        quiz_info.email_id = "d@email.com";
+        quiz_info.email_id = req.session.user;
     }
     if(req.body.total_questions==undefined){
         quiz_info.total_questions = "10";
@@ -70,13 +71,13 @@ router.post('/create_quiz' , function(req,res){
     
     quiz_lib.add_new_quiz(quiz_info,function(error){
     	error && res.render("create_quiz", {error:error});
-    	!error && res.redirect("/start_quiz/1");
+    	!error && res.redirect("start_quiz/1");
     });
 })
 
 router.get('/dashboard',requireLogin,function(req,res){
 	quiz_lib.show_open_quizzes(req.session.user,function(err,open_quizzes){
-		err && res.render('dashboard',{error:err})
+		err && res.render('dashboard',{error:err});
 		!err && res.render('dashboard',{open_quizzes:open_quizzes});
 	});
 });
