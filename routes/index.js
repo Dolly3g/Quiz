@@ -87,8 +87,8 @@ router.post('/create_quiz' ,requireLogin, function(req,res){
 })
 
 router.get('/dashboard',requireLogin,function(req,res){
-	quiz_lib.show_open_quizzes(function(err,open_quizzes){
-		err && req.render('dashboard',{error:err})
+	quiz_lib.show_open_quizzes(req.session.user,function(err,open_quizzes){
+		err && res.render('dashboard',{error:err});
 		!err && res.render('dashboard',{open_quizzes:open_quizzes});
 	});
 });
